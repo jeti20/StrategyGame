@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Handling moving, animations
 public class Unit : MonoBehaviour
 {
     [SerializeField] private Animator unitAnimator;
     private Vector3 targetPosition;
+
+    //Handling that the unit is standing where he is standing not 0,0,0. If delete this units will run to 0,0,0
+    private void Awake() 
+    {
+        targetPosition = transform.position;
+    }
 
     private void Update()
     {        
@@ -26,14 +32,10 @@ public class Unit : MonoBehaviour
             unitAnimator.SetBool("IsWalking", false);
         }
 
-        //Movment func
-        if (Input.GetMouseButtonDown(0))
-        {
-            Move(MouseWorld.GetPosition());
-        }
+
     }
 
-    private void Move(Vector3 targetPosition)
+    public void Move(Vector3 targetPosition)
     {
         this.targetPosition = targetPosition;
     }
