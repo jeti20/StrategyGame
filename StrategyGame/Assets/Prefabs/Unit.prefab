@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5485184901177566567}
   - component: {fileID: 1162475545524457484}
   - component: {fileID: 3095182475127939295}
+  - component: {fileID: 8988323223683378539}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -47,7 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df1b3ae8851d4944086f706d6c87b2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitAnimator: {fileID: 5578619893187420527}
 --- !u!65 &3095182475127939295
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -69,6 +69,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5772204, y: 1.814414, z: 0.51967704}
   m_Center: {x: 0.026787728, y: 0.85007703, z: 0.0021426082}
+--- !u!114 &8988323223683378539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6267773477109079468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f814dbc5082d615438db29c2cee0e94f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitAnimator: {fileID: 5578619893187420527}
+  maxMoveDistance: 4
 --- !u!1 &7402633864540173008
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,6 +142,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -248,7 +265,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 23025878479421994, guid: c25ac4fdc903e7d49a7520930673ecd6,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4d1c11ecf91c18d4e86d3818e8c650cc, type: 2}
     m_RemovedComponents: []

@@ -1,41 +1,47 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
-//Handling movement, unit selection and unitselection visuals (observe and singletton pattern)
+
 public class UnitActionSystem : MonoBehaviour
 {
-    public static UnitActionSystem Instance {get; private set;} //get -> for other scripts to red, private set -> so other scripts cannot write
-        
+//Handling movement, unit selection and unitselection visuals (observe and singletton pattern)
+    public static UnitActionSystem Instance { get; private set; } //get -> for other scripts to red, private set -> so other scripts cannot write
+
+
     public event EventHandler OnSelectedUnitChanged;
+
+
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask unitLayerMask;
-    
-    //Singleton
+
+//Singleton
     private void Awake()
     {
-        if (Instance != null) 
+        if (Instance != null)
         {
-            Debug.LogError("There is more than one UnitActionSystem " + transform + " - " + Instance);
+            Debug.LogError("There's more than one UnitActionSystem! " + transform + " - " + Instance);
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
     }
-    private void Update() 
-    {      
-        //Movment func
+
+    private void Update()
+    {//Movment func
         if (Input.GetMouseButtonDown(0))
         {
             if (TryHandleUnitSelection()) return;
-            selectedUnit.Move(MouseWorld.GetPosition()); 
+
+            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.GetPosition());
+
+            if (selectedUnit.GetMoveAction().IsValidActionGridPosition(mouseGridPosition))
+            {
+                selectedUnit.GetMoveAction().Move(mouseGridPosition);
+            }
         }
     }
-    //Unit selection
+  //Unit selection
     private bool TryHandleUnitSelection()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -47,10 +53,10 @@ public class UnitActionSystem : MonoBehaviour
                 return true;
             }
         }
+
         return false;
     }
-
-    //Visual Selection Effect - observer pattern
+  //Visual Selection Effect - observer pattern
     private void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit;
@@ -61,7 +67,7 @@ public class UnitActionSystem : MonoBehaviour
         //OnSelectedUnitChange?Invoke(This, EventArgs.Empty); the same as the if
     }
 
-    //making it accesable for other scripts to know what unit is selected
+     //making it accesable for other scripts to know what unit is selected
     public Unit GetSelectedUnit()
     {
         return selectedUnit;
